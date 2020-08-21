@@ -1,7 +1,5 @@
 package utils;
 
-
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,29 +10,20 @@ import entity.Allergene;
 
 public class DaoAllergenes {
 
-	private EntityManagerFactory factory = Persistence.createEntityManagerFactory("connexion");
-
-	public void insertAllergene(Allergene allergene, String morceaux) {
-
-		EntityManager em = factory.createEntityManager();
+	public void insertAllergene(EntityManager em, List<Allergene> listeAllergene) {
 
 		if (em != null) {
-			List<String> allergenes = Arrays.asList(morceaux.split(",", -1));
 
-			for (String nomAllergenes : allergenes) {
+			for (Allergene allergenes : listeAllergene) {
 
-				allergene.setNom(nomAllergenes);
-				
+				em.getTransaction().begin();
+				em.persist(allergenes);
+				em.getTransaction().commit();
 			}
-
-			em.getTransaction().begin();
-
-			em.persist(allergene);
-
-			em.getTransaction().commit();
+// fermeture de la transaction
+			em.close();
 
 		}
-		//em.close();
-	//	factory.close();
+
 	}
 }

@@ -1,10 +1,13 @@
 package entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,15 +17,20 @@ public class Marque {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer id;
 
 	@Column(name = "NOM", length = 2500, nullable = false, unique = true)
-	private String nom;
+	private String nomMarque;
 
 	public Marque() {
-		
+
 	}
-	
+
+	public Marque(String nomMarque) {
+		this.nomMarque = nomMarque;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -32,17 +40,16 @@ public class Marque {
 	}
 
 	public String getNom() {
-		return nom;
+		return nomMarque;
 	}
 
 	public void setNom(String nom) {
-		this.nom = nom;
+		this.nomMarque = nom;
 	}
 
 	@Override
 	public String toString() {
-		return "Marques [id=" + id + ", nom=" + nom + "]";
+		return "Marques [id=" + id + ", nom=" + nomMarque + "]";
 	}
 
-	
 }

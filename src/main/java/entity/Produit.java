@@ -1,117 +1,142 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Produit")
+@Table(name = "produit")
 
 public class Produit {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	// @Column(name ="id")
 	private Integer id;
 
-	@Column(name = "grade", length = 255, insertable = false, unique = true)
+	@Column(name = "GRADE", length = 255, nullable = false, unique = true)
 	private String grade;
 
-	@Column(name = "NOM", length = 2000, insertable = false, unique = true)
-	private String nom;
+	@Column(name = "NOM", length = 2000, nullable = false, unique = true)
+	private String nomProduit;
 
-	@Column(name = "id_cat", length = 250, insertable = false, unique = true)
-	private int id_cat;
+	@ManyToOne
+	@JoinColumn(name = "ID_CAT", nullable = false, unique = true)
+	private Categorie id_cat;
 
-	@Column(name = "id_mrq", length = 250, insertable = false, unique = true)
-	private int id_mrq;
+	@ManyToOne
+	@JoinColumn(name = "ID_MRQ", nullable = false, unique = true)
+	private Marque id_mrq;
 
-	@Column(name = "betaCarotene100g", length = 250, insertable = false, unique = true)
+	@ManyToMany
+	@JoinTable(name = "composition_ing", joinColumns = @JoinColumn(name = "ID_PRD"), inverseJoinColumns = @JoinColumn(name = "ID_ING"))
+	private List<Ingredient> listeIngredient = new ArrayList<Ingredient>();
+
+	@ManyToMany
+	@JoinTable(name = "composition_all", joinColumns = @JoinColumn(name = "ID_PRD"), inverseJoinColumns = @JoinColumn(name = "ID_ALL"))
+	private List<Allergene> listeAllergene = new ArrayList<Allergene>();
+
+	@ManyToMany
+	@JoinTable(name = "composition_add", joinColumns = @JoinColumn(name = "ID_PRD"), inverseJoinColumns = @JoinColumn(name = "ID_ADD"))
+	private List<Additif> listeAdditif = new ArrayList<Additif>();
+
+	@Column(name = "BETACAROTENE100G", length = 250, nullable = false, unique = true)
 	private double betaCarotene100g;
 
-	@Column(name = "calcium100g", length = 250, insertable = false, unique = true)
+	@Column(name = "CALCIUM100G", length = 250, nullable = false, unique = true)
 	private double calcium100g;
 
-	@Column(name = "energie100g", length = 250, insertable = false, unique = true)
+	@Column(name = "ENERGIE100G", length = 250, nullable = false, unique = true)
 	private double energie100g;
 
-	@Column(name = "fer100g", length = 250, insertable = false, unique = true)
+	@Column(name = "FER100G", length = 250, nullable = false, unique = true)
 	private double fer100g;
 
-	@Column(name = "fibres100g", length = 250, insertable = false, unique = true)
+	@Column(name = "FIBRES100G", length = 250, nullable = false, unique = true)
 	private double fibres100g;
 
-	@Column(name = "graisse100g", length = 250, insertable = false, unique = true)
+	@Column(name = "GRAISSE100G", length = 250, nullable = false, unique = true)
 	private double graisse100g;
 
-	@Column(name = "iron100g", length = 250, insertable = false, unique = true)
+	@Column(name = "IRON100G", length = 250, nullable = false, unique = true)
 	private double iron100g;
 
-	@Column(name = "magnesium100g", length = 250, insertable = false, unique = true)
+	@Column(name = "MAGNESIUM100G", length = 250, nullable = false, unique = true)
 	private double magnesium100g;
 
-	@Column(name = "presenceHuilePalme", length = 250, insertable = false, unique = true)
+	@Column(name = "PRESENCEHUILEPALME", length = 250, nullable = false, unique = true)
 	private String presenceHuilePalme;
 
-	@Column(name = "proteines100g", length = 250, insertable = false, unique = true)
+	@Column(name = "PROTEINES100G", length = 250, nullable = false, unique = true)
 	private double proteines100g;
 
-	@Column(name = "sel100g", length = 250, insertable = false, unique = true)
+	@Column(name = "SEL100G", length = 250, nullable = false, unique = true)
 	private double sel100g;
 
-	@Column(name = "sucres100g", length = 250, insertable = false, unique = true)
+	@Column(name = "SUCRES100G", length = 250, nullable = false, unique = true)
 	private double sucres100g;
 
-	@Column(name = "vitA100g", length = 250, insertable = false, unique = true)
+	@Column(name = "VITA100G", length = 250, nullable = false, unique = true)
 	private double vitA100g;
 
-	@Column(name = "vitB1100g", length = 250, insertable = false, unique = true)
+	@Column(name = "VITB1100g", length = 250, nullable = false, unique = true)
 	private double vitB1100g;
 
-	@Column(name = "vitB12100g", length = 250, insertable = false, unique = true)
+	@Column(name = "VITB12100g", length = 250, nullable = false, unique = true)
 	private double vitB12100g;
 
-	@Column(name = "vitB2100g", length = 250, insertable = false, unique = true)
+	@Column(name = "VITB2100g", length = 250, nullable = false, unique = true)
 	private double vitB2100g;
 
-	@Column(name = "vitB6100g", length = 250, insertable = false, unique = true)
+	@Column(name = "VITB6100g", length = 250, nullable = false, unique = true)
 	private double vitB6100g;
 
-	@Column(name = "vitB9100g", length = 250, insertable = false, unique = true)
+	@Column(name = "VITB9100g", length = 250, nullable = false, unique = true)
 	private double vitB9100g;
 
-	@Column(name = "vitC100g", length = 250, insertable = false, unique = true)
+	@Column(name = "VITC100g", length = 250, nullable = false, unique = true)
 	private double vitC100g;
 
-	@Column(name = "vitD100g", length = 250, insertable = false, unique = true)
+	@Column(name = "VITD100g", length = 250, nullable = false, unique = true)
 	private double vitD100g;
 
-	@Column(name = "vitE100g", length = 250, insertable = false, unique = true)
+	@Column(name = "VITE100g", length = 250, nullable = false, unique = true)
 	private double vitE100g;
 
-	@Column(name = "vitK100g", length = 250, insertable = false, unique = true)
+	@Column(name = "VITK100g", length = 250, nullable = false, unique = true)
 	private double vitK100g;
 
-	@Column(name = "vitPP100g", length = 250, insertable = false, unique = true)
+	@Column(name = "VITPP100g", length = 250, nullable = false, unique = true)
 	private double vitPP100g;
 
 	public Produit() {
 
 	}
 
+	public Produit(String nomProduit) {
+		this.nomProduit = nomProduit;
+	}
+
 	@Override
 	public String toString() {
-		return "Produit [id=" + id + ", grade=" + grade + ", nom=" + nom + ", id_cat=" + id_cat + ", id_mrq=" + id_mrq
-				+ ", betaCarotene100g=" + betaCarotene100g + ", calcium100g=" + calcium100g + ", energie100g="
-				+ energie100g + ", fer100g=" + fer100g + ", fibres100g=" + fibres100g + ", graisse100g=" + graisse100g
-				+ ", iron100g=" + iron100g + ", magnesium100g=" + magnesium100g + ", presenceHuilePalme="
-				+ presenceHuilePalme + ", proteines100g=" + proteines100g + ", sel100g=" + sel100g + ", sucres100g="
-				+ sucres100g + ", vitA100g=" + vitA100g + ", vitB1100g=" + vitB1100g + ", vitB12100g=" + vitB12100g
-				+ ", vitB2100g=" + vitB2100g + ", vitB6100g=" + vitB6100g + ", vitB9100g=" + vitB9100g + ", vitC100g="
-				+ vitC100g + ", vitD100g=" + vitD100g + ", vitE100g=" + vitE100g + ", vitK100g=" + vitK100g
-				+ ", vitPP100g=" + vitPP100g + "]";
+		return "Produit [id=" + id + ", grade=" + grade + ", nomProduit=" + nomProduit + ", betaCarotene100g="
+				+ betaCarotene100g + ", calcium100g=" + calcium100g + ", energie100g=" + energie100g + ", fer100g="
+				+ fer100g + ", fibres100g=" + fibres100g + ", graisse100g=" + graisse100g + ", iron100g=" + iron100g
+				+ ", magnesium100g=" + magnesium100g + ", presenceHuilePalme=" + presenceHuilePalme + ", proteines100g="
+				+ proteines100g + ", sel100g=" + sel100g + ", sucres100g=" + sucres100g + ", vitA100g=" + vitA100g
+				+ ", vitB1100g=" + vitB1100g + ", vitB12100g=" + vitB12100g + ", vitB2100g=" + vitB2100g
+				+ ", vitB6100g=" + vitB6100g + ", vitB9100g=" + vitB9100g + ", vitC100g=" + vitC100g + ", vitD100g="
+				+ vitD100g + ", vitE100g=" + vitE100g + ", vitK100g=" + vitK100g + ", vitPP100g=" + vitPP100g + "]";
 	}
 
 	public Integer getId() {
@@ -130,28 +155,52 @@ public class Produit {
 		this.grade = grade;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getNomProduit() {
+		return nomProduit;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNomProduit(String nomProduit) {
+		this.nomProduit = nomProduit;
 	}
 
-	public int getId_cat() {
+	public Categorie getId_cat() {
 		return id_cat;
 	}
 
-	public void setId_cat(int id_cat) {
+	public void setId_cat(Categorie id_cat) {
 		this.id_cat = id_cat;
 	}
 
-	public int getId_mrq() {
+	public Marque getId_mrq() {
 		return id_mrq;
 	}
 
-	public void setId_mrq(int id_mrq) {
+	public void setId_mrq(Marque id_mrq) {
 		this.id_mrq = id_mrq;
+	}
+
+	public List<Ingredient> getListeIngredient() {
+		return listeIngredient;
+	}
+
+	public void setListeIngredient(List<Ingredient> listeIngredient) {
+		this.listeIngredient = listeIngredient;
+	}
+
+	public List<Allergene> getListeAllergene() {
+		return listeAllergene;
+	}
+
+	public void setListeAllergene(List<Allergene> listeAllergene) {
+		this.listeAllergene = listeAllergene;
+	}
+
+	public List<Additif> getListeAdditif() {
+		return listeAdditif;
+	}
+
+	public void setListeAdditif(List<Additif> listeAdditif) {
+		this.listeAdditif = listeAdditif;
 	}
 
 	public double getBetaCarotene100g() {

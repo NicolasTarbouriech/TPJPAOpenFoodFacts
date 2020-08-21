@@ -1,6 +1,6 @@
 package utils;
 
-
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,24 +9,23 @@ import javax.persistence.Persistence;
 import entity.Categorie;
 
 public class DaoCategories {
-	private EntityManagerFactory factory = Persistence.createEntityManagerFactory("connexion");
 
-	public void insertCategories(Categorie categorie, String morceaux) {
-		EntityManager em = factory.createEntityManager();
+	public void insertCategories(EntityManager em, List<Categorie> listeCategorie) {
 
 		if (em != null) {
-			categorie.setNom(morceaux);
 
+			for (Categorie categorie : listeCategorie) {
+
+				em.getTransaction().begin();
+				;
+
+				em.persist(categorie);
+
+				em.getTransaction().commit();
+			}
+			em.close();
 		}
 
-		em.getTransaction();
-
-		em.persist(categorie);
-
-		em.getTransaction().commit();
-
-		// em.close();
-		// factory.close();
 	}
 
 }

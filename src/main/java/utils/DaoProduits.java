@@ -1,6 +1,5 @@
 package utils;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,26 +10,23 @@ import entity.Produit;
 
 public class DaoProduits {
 
-	private EntityManagerFactory factory = Persistence.createEntityManagerFactory("connexion");
 
-	public void insertAdditif(Produit produit, String morceaux) {
+	public void insertProduits(EntityManager em, List<Produit> listeProduit) {
 
-		EntityManager em = factory.createEntityManager();
 
 		if (em != null) {
-			List<String> produits = Arrays.asList(morceaux.split(",", -1));
 
-			for (String nomProduits : produits) {
+			for (Produit produit : listeProduit) {
 
-				produit.setNom(nomProduits);
+				em.getTransaction().begin();
 
+				
+				em.persist(produit);
+
+				em.getTransaction().commit();
 			}
 
-			em.getTransaction().begin();
-
-			em.persist(produit);
-
-			em.getTransaction().commit();
+			em.close();
 		}
 
 	}
